@@ -9,12 +9,15 @@ int main(void)
 {
 	status_t error = SUCCESS;
 	parser_t *parser = parser_initialize(stdin);
-	expr_t *expr = parse(parser);
-	while (expr != NULL)
+	expr_t *expr;
+	
+	error = parse(parser, &expr);
+	while (!error && expr != NULL)
 	{
 		printf("%lu\n", expr_eval(expr));
-		free(expr);
-		expr = parse(parser);
+		expr_uninitialize(expr);
+		
+		error = parse(parser, &expr);
 	}
 
 exit1:

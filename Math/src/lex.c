@@ -48,11 +48,14 @@ void lex_uninitialize(lex_t *lex)
 	free(lex);
 }
 
-tok_t *lex_get_next_token(lex_t *lex)
+status_t lex_get_next_token(lex_t *lex, tok_t **tok)
 {
-	tok_t *tok = tok_initialize();
-	if (tok == NULL)
+	status_t error = SUCCESS;
+
+	*tok = tok_initialize();
+	if (*tok == NULL)
 	{
+		error = OUT_OF_MEM;
 		goto exit0;
 	}
 
@@ -61,38 +64,38 @@ tok_t *lex_get_next_token(lex_t *lex)
 
 	if (lex->next == EOF)
 	{
-		tok_set_type(tok, TOK_EOF);
+		tok_set_type(*tok, TOK_EOF);
 		goto exit0;
 	}
 	
 	if (isdigit(lex->next))
 	{
-		lex_get_integer(lex, tok);
+		lex_get_integer(lex, *tok);
 		goto exit0;
 	}
 
 	if (lex->next == '+')
 	{
-		lex_get_plus(lex, tok);
+		lex_get_plus(lex, *tok);
 		goto exit0;
 	}
 
 	if (lex->next == '-')
 	{
-		lex_get_minus(lex, tok);
+		lex_get_minus(lex, *tok);
 		goto exit0;
 	}
 
 	if (lex->next == '\n')
 	{
-		lex_get_newline(lex, tok);
+		lex_get_newline(lex, *tok);
 		goto exit0;
 	}
 
-	lex_get_unrecognized(lex, tok);
+	lex_get_unrecognized(lex, *tok);
 
 exit0:
-	return tok;
+	return error;
 }
 
 static void lex_skip_whitespace(lex_t *lex)

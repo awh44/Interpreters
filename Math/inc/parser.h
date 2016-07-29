@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "status.h"
+
 typedef struct parser_t parser_t;
 
 typedef struct
@@ -26,6 +28,10 @@ typedef struct
 
 parser_t *parser_initialize(FILE *stream);
 void parser_uninitialize(parser_t *parser);
-expr_t *parse(parser_t *parser);
+status_t parse(parser_t *parser, expr_t **expr);
 uint64_t expr_eval(expr_t *expr);
+void expr_uninitialize(expr_t *expr);
+void term_uninitialize(term_t *term);
+void op_uninitialize(op_t *op);
+
 #endif
