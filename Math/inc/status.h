@@ -8,4 +8,6 @@ typedef enum
 	UNRECOGNIZED_CHARACTER,
 } status_t;
 
+void print_error(status_t error);
+
 #endif

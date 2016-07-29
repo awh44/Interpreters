@@ -95,7 +95,7 @@ status_t parse_term(parser_t *parser, term_t **term)
 	goto exit0;
 
 error_exit0:
-	free(term);
+	free(*term);
 
 exit0:
 	return error;
@@ -148,7 +148,7 @@ status_t parse_op(parser_t *parser, op_t **op)
 	goto exit0;
 
 error_exit0:
-	free(op);
+	free(*op);
 
 exit0:
 	return error;

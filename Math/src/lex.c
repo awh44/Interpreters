@@ -92,7 +92,8 @@ status_t lex_get_next_token(lex_t *lex, tok_t **tok)
 		goto exit0;
 	}
 
-	lex_get_unrecognized(lex, *tok);
+	tok_uninitialize(*tok);
+	error = UNRECOGNIZED_CHARACTER;
 
 exit0:
 	return error;
@@ -139,9 +140,4 @@ static void lex_get_minus(lex_t *lex, tok_t *tok)
 static void lex_get_newline(lex_t *lex, tok_t *tok)
 {
 	lex_get_character_tok(lex, tok, NEWLINE);
-}
-
-static void lex_get_unrecognized(lex_t *lex, tok_t *tok)
-{
-	lex_get_character_tok(lex, tok, UNRECOGNIZED);
 }

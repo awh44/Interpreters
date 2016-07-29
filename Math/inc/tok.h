@@ -10,7 +10,6 @@ typedef enum
 	PLUS,
 	MINUS,
 	NEWLINE,
-	UNRECOGNIZED,
 } tok_type_t;
 
 typedef struct tok_t tok_t;

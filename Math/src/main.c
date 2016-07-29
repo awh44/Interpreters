@@ -23,5 +23,6 @@ int main(void)
 exit1:
 	parser_uninitialize(parser);
 exit0:
+	print_error(error);
 	return error;
 }
